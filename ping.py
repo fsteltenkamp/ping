@@ -86,8 +86,6 @@ def postToInfluxDb(points):
     client.__del__()
 
 def getDevicesFromApi(url, api_token):
-    url = "http://app/api/ext/geraete/list"
-    api_token = "pssst_changeme"
     headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + api_token}
     # pull:
     r = requests.get(url, headers=headers)
@@ -104,7 +102,7 @@ def getDevices():
         logging.info('Requesting hosts from API.')
         url = os.environ.get('URL')
         api_token = os.environ.get('API_TOKEN')
-        devices = getDevices(url, api_token)
+        devices = getDevicesFromApi(url, api_token)
         for device in devices:
             ip = device['publicIp']
             if ip == "127.0.0.1":
