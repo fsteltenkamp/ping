@@ -88,7 +88,10 @@ def postToInfluxDb(points):
 def getDevicesFromApi(url, api_token):
     headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + api_token}
     # pull:
-    r = requests.get(url, headers=headers)
+    if os.environ.get('API_SSL_VERIFY') and os.environ.get('API_SSL_VERIFY') == 'false':
+        r = requests.get(url, headers=headers, verify=False)
+    else:
+        r = requests.get(url, headers=headers)
     devicesJson = r.text
     # parse json:
     devices = json.loads(devicesJson)

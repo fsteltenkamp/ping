@@ -48,6 +48,7 @@ This is set in the influxdb data as a tag 'src'.
 - `INFLUXDB_VERIFY_SSL:` Set to False if you need to use a selfsigned cert or sth like that.
 - `URL`: A Url of an API that provides the list of hosts to ping. See [Ping Api Format](#ping-api-format) for information on how to structure the data on that api endpoint.
 - `API_TOKEN`: Api Token for that Url. Used as a "Bearer" Token.
+- `API_SSL_VERIFY`: Set this to true to allow selfsigned certs on the api endpoint.
 - `HOSTS_FILE`: Alternative way to provide a list of hosts to the script.  
 if this is used, `URL`, `API_TOKEN` and `HOST_LIST` should not be set.  
 This should contain the same structure as the api endpoint. see [Ping Api Format](#ping-api-format) for reference.
