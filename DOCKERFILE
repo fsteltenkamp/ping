@@ -1,0 +1,28 @@
+FROM python:3-alpine
+
+WORKDIR /ping_script
+
+RUN apk add --no-cache fping
+
+RUN pip install influxdb-client simplejson PyYAML requests
+
+ENV DEBUG=false
+ENV INTERVAL=60
+ENV PING_COUNT=10
+ENV SRC_HOST_NAME=
+ENV INFLUXDB_URL=http://influxdb:8086
+ENV INFLUXDB_ORG=Default
+ENV INFLUXDB_TOKEN=changeme
+ENV INFLUXDB_BUCKET=ping
+ENV INFLUXDB_TIMEOUT=6000
+ENV INFLUXDB_VERIFY_SSL=true
+ENV URL=
+ENV API_TOKEN=changeme
+ENV HOSTS_FILE=
+ENV HOST_LIST=
+
+COPY ping.py .
+
+HEALTHCHECK CMD [ "sh", "-c", "if [ $(($(date +%s) - $(date +%s -r /ping_script/last_ping.txt))) -gt $(($INTERVAL + 10)) ]; then exit 1; else exit 0; fi" ]
+
+CMD [ "python", "./ping.py" ]
