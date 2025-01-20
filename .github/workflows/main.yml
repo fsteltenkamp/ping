@@ -1,0 +1,17 @@
+name: Docker Build CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: debian-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Log in to the GHCR
+      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+    - name: Build the image
+      run: docker build . --file DOCKERFILE --tag ghcr.io/fsteltenkamp/ping:latest
+    - name: Push the image
+      run: docker push ghcr.io/fsteltenkamp/ping:latest
