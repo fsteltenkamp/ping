@@ -7,6 +7,7 @@ RUN apk add --no-cache fping
 RUN pip install influxdb-client simplejson PyYAML requests
 
 ENV DEBUG=false
+ENV BOOT_DELAY=0
 ENV INTERVAL=60
 ENV PING_COUNT=10
 ENV SRC_HOST_NAME=
