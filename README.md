@@ -1,4 +1,5 @@
 # Ping
+[![Docker Build CI](https://github.com/fsteltenkamp/ping/actions/workflows/main.yml/badge.svg)](https://github.com/fsteltenkamp/ping/actions/workflows/main.yml)  
 A Docker image that pings a number of ip adresses.
 ## Usage
 Run:
