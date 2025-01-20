@@ -99,7 +99,6 @@ def getDevicesFromApi(url, api_token):
 
 def getDevices():
     hosts = []
-    concatenatedHosts = ''
     devices = []
     if os.environ.get('URL') and os.environ.get('API_TOKEN'):
         logging.info('Requesting hosts from API.')
@@ -108,11 +107,7 @@ def getDevices():
         devices = getDevicesFromApi(url, api_token)
         for device in devices:
             ip = device['publicIp']
-            if ip == "127.0.0.1":
-                logging.debug('Skipping because of localhost.')
-            else:
-                hosts.append(device['publicIp'])
-                concatenatedHosts = '\n'.join(hosts)
+            hosts.append(ip)
     elif os.environ.get('TARGETS_FILE'):
         logging.info('Using hosts from provided file.')
         hostsFile = os.environ.get('HOSTS_FILE')
@@ -120,22 +115,18 @@ def getDevices():
             devices = simplejson.load(f)
             for device in devices:
                 ip = device['publicIp']
-                if ip == "127.0.0.1":
-                    logging.debug('Skipping because of localhost.')
-                else:
-                    hosts.append(device['publicIp'])
-                    concatenatedHosts = '\n'.join(hosts)
+                hosts.append(ip)
     elif os.environ.get('HOST_LIST'):
         logging.info('Using provided hosts.')
         devices = os.environ.get('HOST_LIST')
         hosts = devices.split(',')
-        concatenatedHosts = '\n'.join(hosts)
     else:
         logging.error('No hosts provided. Exiting.')
         exit(1)
     #debug:
     logging.debug('hosts:')
     logging.debug(hosts)
+    concatenatedHosts = '\n'.join(hosts)
     return concatenatedHosts
 
 # config:
