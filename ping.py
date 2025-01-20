@@ -149,6 +149,11 @@ else:
 logging.getLogger().addHandler(loggingHandler)
 
 #main:
+logging.info('Starting ping script.')
+if os.environ.get('BOOT_DELAY'):
+    logging.info('Waiting for ' + os.environ.get('BOOT_DELAY') + ' seconds to allow for other services to start.')
+    time.sleep(os.environ.get('BOOT_DELAY'))
+logging.info('Starting main loop.')
 while 1:
     pingCount = int(os.environ.get('PING_COUNT'))
     sleepTime = int(os.environ.get('INTERVAL'))
