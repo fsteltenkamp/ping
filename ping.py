@@ -105,6 +105,7 @@ def getDevices():
         url = os.environ.get('URL')
         api_token = os.environ.get('API_TOKEN')
         devices = getDevicesFromApi(url, api_token)
+        devices = devices['devices']
         for device in devices:
             ip = device['publicIp']
             hosts.append(ip)
@@ -113,6 +114,7 @@ def getDevices():
         hostsFile = os.environ.get('HOSTS_FILE')
         with open(hostsFile, "r") as f:
             devices = simplejson.load(f)
+            devices = devices['devices']
             for device in devices:
                 ip = device['publicIp']
                 hosts.append(ip)
