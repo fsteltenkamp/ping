@@ -28,7 +28,6 @@ def getPoints(fpingOl, pingCount, start_timestamp, src_host_name):
         logging.debug('processing results for ' + host + '.')
 
         if len(pings) == 0:
-            logging.warning('100% Loss for ' + host)
             average = float(0)
             psdeviation = float(0)
             loss = round(responses.count('-') / pingCount, 2)
